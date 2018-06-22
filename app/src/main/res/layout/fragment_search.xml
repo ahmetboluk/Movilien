@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:clickable="true"
+    android:orientation="vertical"
+    tools:context=".myFragment.SearchFragment">
+
+    <LinearLayout
+        android:id="@+id/toolbar_search"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/backdrop_title" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryLigth"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <EditText
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:id="@+id/et_search_text"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/search_rounded_corner"
+            android:hint="Can I help you!"
+            android:padding="10dp"
+            android:textColor="@color/textColorPrimary"
+            android:textColorHint="@color/textColorSecondary" />
+
+        <ImageButton
+            android:id="@+id/search_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimaryDark"
+            android:src="@drawable/ic_search"
+
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_search_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/select_rounded_corner"
+        android:gravity="center_horizontal"
+        android:padding="1dp">
+
+        <ImageButton
+            android:id="@+id/btn_day"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:background="@drawable/select_accent_color"
+            android:gravity="center"
+            android:src="@drawable/movie_icon"
+            android:textColor="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/btn_week"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:background="@drawable/select_rounded_background"
+            android:gravity="center"
+            android:src="@drawable/contacts"
+            android:textColor="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/btn_month"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:background="@drawable/select_rounded_background"
+            android:gravity="center"
+            android:src="@drawable/tv_show"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

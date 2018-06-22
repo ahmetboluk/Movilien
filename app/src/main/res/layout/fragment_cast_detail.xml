@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".myFragment.DetailFragment"
+    android:clickable="true"
+    android:background="@color/colorPrimary"
+    android:padding="10dp"
+    >
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent">
+            <ImageView
+                android:id="@+id/im_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:scaleType="center"
+                app:srcCompat="@drawable/loading"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_people_layout"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:visibility="invisible">
+            <ImageView
+                android:id="@+id/iv_person_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/tv_people_nation"
+                android:scaleType="centerCrop" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:alpha="0.8">
+
+            </View>
+
+            <ImageView
+                android:id="@+id/iv_people_image"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/no_photo" />
+
+            <TextView
+                android:id="@+id/tv_people_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_people_image"
+                android:layout_marginBottom="5dp"
+                android:text="Star Wars"
+                android:textAlignment="center"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_people_born_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_people_name"
+                android:layout_marginBottom="5dp"
+                android:text="2018-08-08"
+                android:textAlignment="center"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/tv_people_nation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_people_born_date"
+                android:paddingBottom="10dp"
+                android:text="London, England, UK"
+                android:textAlignment="center"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="14dp" />
+
+            <android.support.design.widget.TabLayout
+                android:layout_below="@+id/tv_people_nation"
+                android:id="@+id/people_tab_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_margin="15dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:layout_centerHorizontal="true"
+                app:tabMode="scrollable"
+
+                ></android.support.design.widget.TabLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/people_pager"
+                android:layout_below="@+id/people_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/colorPrimary">
+
+            </android.support.v4.view.ViewPager>
+        </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

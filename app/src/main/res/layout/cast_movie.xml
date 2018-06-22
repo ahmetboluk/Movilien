@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:gravity="center"
+    android:padding="2dp">
+    <ImageView
+        android:id="@+id/im_casting_image"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:src="@drawable/no_photo"/>
+    <TextView
+        android:id="@+id/tv_casting_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Star Wars"
+        android:textSize="10dp"
+        android:textColor="@color/textColorPrimary"
+        />
+</LinearLayout>
