@@ -2,6 +2,7 @@ package com.ahmetboluk.movilien.myFragment;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -40,6 +41,8 @@ public class DetailListFragment extends Fragment {
     ListAdapter mAdapter, sAdapter;
     TextView textViewEmtyOne,textViewEmtyTwo;
     FragmentManager fragmentManager;
+
+    private long mLastClickTime = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -125,6 +128,10 @@ public class DetailListFragment extends Fragment {
         movieRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), movieRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 500) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 DetailFragment detailFragment = new DetailFragment();
                 Bundle data = new Bundle();
                 data.putInt("movie_id", mAdapter.getItem(position).getItemid());
@@ -157,6 +164,10 @@ public class DetailListFragment extends Fragment {
         seriesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), seriesRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 500) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 DetailFragment detailFragment = new DetailFragment();
                 Bundle data = new Bundle();
                 data.putInt("series_id", sAdapter.getItem(position).getItemid());

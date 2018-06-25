@@ -3,6 +3,7 @@ package com.ahmetboluk.movilien.myFragment.castTabItem;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -31,6 +32,7 @@ public class PeopleTabTwo extends Fragment {
     private int SELECTED_MOVIE=0;
     private int SELECTED_TV=1;
 
+    private long mLastClickTime = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,10 @@ public class PeopleTabTwo extends Fragment {
                 new RecyclerItemClickListener(getContext(),recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
+                        if (SystemClock.elapsedRealtime() - mLastClickTime < 500) {
+                            return;
+                        }
+                        mLastClickTime = SystemClock.elapsedRealtime();
                         DetailFragment detailFragment = new DetailFragment();
                         Bundle data=new Bundle();
                         data.putInt("movie_id", personDetail.getMovieCredits().getCast().get(position).getId());

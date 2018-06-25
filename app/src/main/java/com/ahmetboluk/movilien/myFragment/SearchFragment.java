@@ -179,7 +179,11 @@ public class SearchFragment extends Fragment {
                     api.create(TmdbApi.class).listSearchMovieResult(API_KEY, search_text, page).enqueue(new Callback<PageData>() {
                         @Override
                         public void onResponse(Call<PageData> call, Response<PageData> response) {
-                            movieSearchResult.addAll(response.body().getResults());
+                            if (response.body() != null) {
+                                movieSearchResult.addAll(response.body().getResults());
+                            }else{
+                                movieSearchResult=new ArrayList<Result>();
+                            }
                             movieAdapter.notifyDataSetChanged();
                             if (movieSearchResult.size()==0&&SEARCH_SELECTED==MOVIE){
                                 Toast.makeText(mContext, "No Results Found", Toast.LENGTH_SHORT).show();}
@@ -193,7 +197,11 @@ public class SearchFragment extends Fragment {
                     api.create(TmdbApi.class).listSearchPersonResult(API_KEY, search_text, page).enqueue(new Callback<PageData>() {
                         @Override
                         public void onResponse(Call<PageData> call, Response<PageData> response) {
-                            personSearchResult.addAll(response.body().getResults());
+                            if (response.body() != null) {
+                                personSearchResult.addAll(response.body().getResults());
+                            }else{
+                                personSearchResult=new ArrayList<Result>();
+                            }
                             personAdapter.notifyDataSetChanged();
                             if (personSearchResult.size()==0&&SEARCH_SELECTED==PERSON){
                                 Toast.makeText(mContext, "No Results Found", Toast.LENGTH_SHORT).show();}
@@ -208,7 +216,11 @@ public class SearchFragment extends Fragment {
                     api.create(TmdbApi.class).listSearchSeriesResult(API_KEY, search_text, page).enqueue(new Callback<PageData>() {
                         @Override
                         public void onResponse(Call<PageData> call, Response<PageData> response) {
-                            seriesSearchResult.addAll(response.body().getResults());
+                            if (response.body() != null) {
+                                seriesSearchResult.addAll(response.body().getResults());
+                            }else{
+                                seriesSearchResult=new ArrayList<Result>();
+                            }
                             seriesAdapter.notifyDataSetChanged();
                             if (seriesSearchResult.size()==0&&SEARCH_SELECTED==TV){
                                 Toast.makeText(mContext, "No Results Found", Toast.LENGTH_SHORT).show();}

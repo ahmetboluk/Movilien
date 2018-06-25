@@ -146,9 +146,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (lastchooseOne == 1) {
                     getSupportFragmentManager().beginTransaction().detach(manager.findFragmentByTag("List")).commit();
-                    try {
+                    if(getSupportFragmentManager().findFragmentByTag("DetailList")!=null ) {
                         getSupportFragmentManager().beginTransaction().detach(manager.findFragmentByTag("DetailList")).commit();
-                    }catch (Exception e){}
+                    }
                     lastchooseOne = 0;
                 }else if (lastchooseTwo == 2) {
                     getSupportFragmentManager().beginTransaction().detach(manager.findFragmentByTag("About")).commit();
@@ -162,9 +162,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (lastchooseOne == 1) {
                     getSupportFragmentManager().beginTransaction().detach(manager.findFragmentByTag("List")).commit();
-                    try {
+                    if(getSupportFragmentManager().findFragmentByTag("DetailList")!=null ) {
                         getSupportFragmentManager().beginTransaction().detach(manager.findFragmentByTag("DetailList")).commit();
-                    }catch (Exception e){}
+                    }
                     lastchooseOne = 0;
                 }else if (lastchooseTwo == 2) {
                     getSupportFragmentManager().beginTransaction().detach(manager.findFragmentByTag("About")).commit();

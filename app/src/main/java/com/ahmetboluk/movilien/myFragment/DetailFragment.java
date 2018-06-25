@@ -3,6 +3,7 @@ package com.ahmetboluk.movilien.myFragment;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -62,6 +63,8 @@ public class DetailFragment extends Fragment {
     RelativeLayout relativeLayout, video;
     ActionBar actionBar;
     ImageView loading;
+
+    private long mLastClickTime = 0;
 
     public static final String API_KEY = "31b2377287f733ce461c2d352a64060e";
     Retrofit api = new Retrofit.Builder().baseUrl("https://api.themoviedb.org/3/").addConverterFactory(GsonConverterFactory.create()).build();
@@ -201,6 +204,10 @@ public class DetailFragment extends Fragment {
                 new RecyclerItemClickListener(getContext(), similarRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
+                        if (SystemClock.elapsedRealtime() - mLastClickTime < 500) {
+                            return;
+                        }
+                        mLastClickTime = SystemClock.elapsedRealtime();
                         DetailFragment detailFragment = new DetailFragment();
                         Bundle data = new Bundle();
                         if (SELECTED == SELECTED_MOVIE) {
@@ -226,6 +233,10 @@ public class DetailFragment extends Fragment {
                 new RecyclerItemClickListener(getContext(), castRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
+                        if (SystemClock.elapsedRealtime() - mLastClickTime < 500) {
+                            return;
+                        }
+                        mLastClickTime = SystemClock.elapsedRealtime();
                         CastDetailFragment castDetailFragment = new CastDetailFragment();
                         Bundle data = new Bundle();
                         if (SELECTED == SELECTED_MOVIE) {
@@ -250,6 +261,11 @@ public class DetailFragment extends Fragment {
         watchTrailer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
 
                 if (SELECTED == SELECTED_MOVIE) {
                     api.create(TmdbApi.class).listMovieVideos(getArguments().getInt("movie_id"), API_KEY).enqueue(new Callback<Videos>() {
@@ -317,6 +333,10 @@ public class DetailFragment extends Fragment {
         addToList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 500) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 FragmentManager fragmentManager = getFragmentManager();
                 DialogFragment dialogFragment = new DialogFragment();
                 Bundle data = new Bundle();

@@ -2,6 +2,7 @@ package com.ahmetboluk.movilien.myFragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,6 +20,8 @@ public class ListFragment extends Fragment {
     Bundle bundle;
     View v1,v2,v3;
     View view;
+    private long mLastClickTime = 0;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,10 @@ public class ListFragment extends Fragment {
         textViewWactch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //scaleView(v, 0f, .6f);
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 500) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 v1.animate().scaleX((view.getWidth())/(v1.getWidth())*2).setDuration(300).withEndAction(new Runnable() {
                     @Override
                     public void run() {
@@ -65,6 +71,10 @@ public class ListFragment extends Fragment {
         textViewWactched.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 500) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 v2.animate().scaleX((view.getWidth())/(v2.getWidth())*2).setDuration(300).withEndAction(new Runnable() {
                     @Override
                     public void run() {DetailListFragment detailListFragment = new DetailListFragment();
@@ -84,6 +94,10 @@ public class ListFragment extends Fragment {
         textViewFavorities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 500) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 v3.animate().scaleX((view.getWidth())/(v3.getWidth())*2).setDuration(300).withEndAction(new Runnable() {
                     @Override
                     public void run() {

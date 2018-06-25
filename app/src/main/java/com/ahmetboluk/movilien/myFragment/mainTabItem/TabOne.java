@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -53,6 +54,8 @@ public class TabOne extends Fragment implements BottomTabLayotListener {
     private int SELECTED_TV=1;
     public static final String API_KEY="31b2377287f733ce461c2d352a64060e";
     Retrofit api =new Retrofit.Builder().baseUrl("https://api.themoviedb.org/3/").addConverterFactory(GsonConverterFactory.create()).build();
+
+    private long mLastClickTime = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -133,8 +136,6 @@ public class TabOne extends Fragment implements BottomTabLayotListener {
                             Log.e("HATA", "onFailure: "+t.getMessage().toString() );
                         }
                     });
-
-
                     }
                 }
             }
@@ -143,6 +144,10 @@ public class TabOne extends Fragment implements BottomTabLayotListener {
                 new RecyclerItemClickListener(getContext(),recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
+                        if (SystemClock.elapsedRealtime() - mLastClickTime < 500) {
+                            return;
+                        }
+                        mLastClickTime = SystemClock.elapsedRealtime();
                         DetailFragment detailFragment = new DetailFragment();
                         Bundle data=new Bundle();
                         if(SELECTED==SELECTED_MOVIE) {

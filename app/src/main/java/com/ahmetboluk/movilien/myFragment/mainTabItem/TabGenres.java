@@ -2,6 +2,7 @@ package com.ahmetboluk.movilien.myFragment.mainTabItem;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,14 +36,17 @@ public class TabGenres extends Fragment implements BottomTabLayotListener {
     public Genres mSeriesGenres;
     private GenresAdapter mMovieGenresAdapter;
     private GenresAdapter mSeriesGenresAdapter;
-    private int SELECTED=0;
-    private int SELECTED_MOVIE=0;
-    private int SELECTED_TV=1;
+    private int SELECTED = 0;
+    private int SELECTED_MOVIE = 0;
+    private int SELECTED_TV = 1;
+    private long mLastClickTime = 0;
+
 
     public RecyclerView.LayoutManager mLayoutManager;
 
-    public static final String API_KEY="31b2377287f733ce461c2d352a64060e";
-    Retrofit api =new Retrofit.Builder().baseUrl("https://api.themoviedb.org/3/").addConverterFactory(GsonConverterFactory.create()).build();
+    public static final String API_KEY = "31b2377287f733ce461c2d352a64060e";
+    Retrofit api = new Retrofit.Builder().baseUrl("https://api.themoviedb.org/3/").addConverterFactory(GsonConverterFactory.create()).build();
+
     public TabGenres() {
         // Required empty public constructor
     }
@@ -55,25 +59,26 @@ public class TabGenres extends Fragment implements BottomTabLayotListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_tab_genres, container, false);
 
         ImageView loading = (ImageView) view.findViewById(R.id.im_loading);
-        animation= (AnimationDrawable)loading.getDrawable();
+        animation = (AnimationDrawable) loading.getDrawable();
         animation.start();
         api.create(TmdbApi.class).listGenres(API_KEY).enqueue(new Callback<Genres>() {
             @Override
             public void onResponse(Call<Genres> call, Response<Genres> response) {
                 mMovieGenres = response.body();
                 mLayoutManager = new LinearLayoutManager(getContext());
-                mMovieGenresAdapter = new GenresAdapter(getContext(),mMovieGenres,0);
+                mMovieGenresAdapter = new GenresAdapter(getContext(), mMovieGenres, 0);
                 genreRecyclerView.setLayoutManager(mLayoutManager);
                 genreRecyclerView.setAdapter(mMovieGenresAdapter);
                 animation.stop();
 
             }
+
             @Override
             public void onFailure(Call<Genres> call, Throwable t) {
 
@@ -84,27 +89,32 @@ public class TabGenres extends Fragment implements BottomTabLayotListener {
         genreRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), genreRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-//                Toast.makeText(getContext(), "buuu"+mSeriesGenres.getGenres().get(position).getId().toString(), Toast.LENGTH_SHORT).show();
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 500) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 GenreDetailFragment genreDetailFragment = new GenreDetailFragment();
                 Bundle data = new Bundle();
-                if(SELECTED==SELECTED_MOVIE) {
+                if (SELECTED == SELECTED_MOVIE) {
                     data.putInt("genre_id", mMovieGenres.getGenres().get(position).getId());
-                }else if (SELECTED==SELECTED_TV){
+                } else if (SELECTED == SELECTED_TV) {
                     data.putInt("genre_id", mSeriesGenres.getGenres().get(position).getId());
 
                 }
-                data.putInt("selected",SELECTED);
+                data.putInt("selected", SELECTED);
                 genreDetailFragment.setArguments(data);
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.rl_solution, genreDetailFragment,null);
+                fragmentTransaction.add(R.id.rl_solution, genreDetailFragment, null);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+
             }
 
             @Override
             public void onLongItemClick(View view, int position) {
 
             }
+
         }));
 
         return view;
@@ -114,7 +124,7 @@ public class TabGenres extends Fragment implements BottomTabLayotListener {
     public void onMovieSelected() {
         animation.start();
 
-        SELECTED=SELECTED_MOVIE;
+        SELECTED = SELECTED_MOVIE;
         genreRecyclerView.setAdapter(mMovieGenresAdapter);
         animation.stop();
 
@@ -123,7 +133,7 @@ public class TabGenres extends Fragment implements BottomTabLayotListener {
 
     @Override
     public void onSeriesSelected() {
-        SELECTED=SELECTED_TV;
+        SELECTED = SELECTED_TV;
 
         animation.start();
         api.create(TmdbApi.class).listSeriesGenres(API_KEY).enqueue(new Callback<Genres>() {
@@ -131,12 +141,13 @@ public class TabGenres extends Fragment implements BottomTabLayotListener {
             public void onResponse(Call<Genres> call, Response<Genres> response) {
                 mSeriesGenres = response.body();
                 mLayoutManager = new LinearLayoutManager(getContext());
-                mSeriesGenresAdapter = new GenresAdapter(getContext(),mSeriesGenres,1);
+                mSeriesGenresAdapter = new GenresAdapter(getContext(), mSeriesGenres, 1);
                 genreRecyclerView.setLayoutManager(mLayoutManager);
                 genreRecyclerView.setAdapter(mSeriesGenresAdapter);
                 animation.stop();
 
             }
+
             @Override
             public void onFailure(Call<Genres> call, Throwable t) {
 
