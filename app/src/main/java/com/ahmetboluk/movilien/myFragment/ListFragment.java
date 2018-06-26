@@ -40,7 +40,7 @@ public class ListFragment extends Fragment {
 
         textViewWactch = view.findViewById(R.id.tv_watch);
         textViewWactched = view.findViewById(R.id.tv_watched);
-        textViewFavorities = view.findViewById(R.id.tv_favorities);
+        textViewFavorities = view.findViewById(R.id.tv_favorites);
 
         textViewWactch.setOnClickListener(new View.OnClickListener() {
             @Override

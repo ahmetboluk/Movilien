@@ -192,4 +192,5 @@ public class DetailListFragment extends Fragment {
         return view;
     }
 
+
 }

@@ -170,7 +170,7 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
                 if (databaseResult.itemid == getArguments().getInt("itemid")) {
                     addToWatchText.setText("Delete Watch");
                     addWatchedText.setText("Move to Watched");
-                    addFavoritesText.setText("Move to Favorities");
+                    addFavoritesText.setText("Move to Favorites");
 
                     addToWatchImage.setImageResource(R.drawable.cancel);
                     addWatchedImage.setImageResource(R.drawable.down_right);
@@ -181,7 +181,7 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
             case 2:
                 if (databaseResult.itemid == getArguments().getInt("itemid")) {
                     addWatchedText.setText("Delete Watched");
-                    addFavoritesText.setText("Move to Favorities");
+                    addFavoritesText.setText("Move to Favorites");
                     addToWatchText.setText("Move to Watch");
 
                     addToWatchImage.setImageResource(R.drawable.down_right);
@@ -191,7 +191,7 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
                 break;
             case 3:
                 if (databaseResult.itemid == getArguments().getInt("itemid")) {
-                    addFavoritesText.setText("Delete Favorities");
+                    addFavoritesText.setText("Delete Favorites");
                     addWatchedText.setText("Move to Watched");
                     addToWatchText.setText("Move to Watch");
 
@@ -203,7 +203,7 @@ public class DialogFragment extends android.support.v4.app.DialogFragment {
             default:
                 addToWatchText.setText("Add To Watch");
                 addWatchedText.setText("Add Watched");
-                addFavoritesText.setText("Add Favorities");
+                addFavoritesText.setText("Add Favorites");
 
                 addToWatchImage.setImageResource(R.drawable.down_right);
                 addWatchedImage.setImageResource(R.drawable.down_right);

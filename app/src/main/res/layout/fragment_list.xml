@@ -94,16 +94,17 @@
                 android:id="@+id/ll_list_3"
                 android:layout_width="20dp"
                 android:layout_height="match_parent"
-                android:background="#ff4f4f">
+                android:background="#ff4f4f"
+                android:orientation="horizontal">
 
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_favorities"
+                android:id="@+id/tv_favorites"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Favorities List"
+                android:text="Favorites List"
                 android:textColor="@color/textColorPrimary"
                 android:textStyle="bold"
                 android:textSize="20dp"/>
